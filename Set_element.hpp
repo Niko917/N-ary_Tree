@@ -45,7 +45,7 @@ public:
     }
 
     void print() const override {
-        std::cout << this->item;
+        std::cout << this->item << " ";
     }
 };
 
@@ -73,7 +73,7 @@ public:
     }
 
     void print() const override {
-        std::cout << this->item;
+        std::cout << this->item << " ";
     }
 };
 
@@ -100,7 +100,7 @@ public:
     }
 
     void print() const override {
-        std::cout << "(" << item.real() << item.imag() << ")";
+        std::cout << item.real() << "+" << item.imag() << "i" << " ";
     }
 };
 
@@ -127,7 +127,7 @@ public:
     }
 
     void print() const override {
-        std::cout << this->item;
+        std::cout << this->item << " ";
     }  
 };
 
@@ -138,7 +138,7 @@ public:
 class Base_Function {
 private:
     virtual~Base_Function() = default;
-    virtual std::string Func_name() const = 0;
+    virtual void Func_name() const = 0;
     virtual void call_function() = 0;
 
 };
@@ -158,8 +158,8 @@ public:
         Return_Type result = func();
     }
 
-    std::string Func_name() const override {
-        std::cout << this->Fn_name;
+    void Func_name() const override {
+        std::cout << this->Fn_name << " ";
     }
 };
 
@@ -250,7 +250,7 @@ public:
             << ", Birth Date: " 
             << Get_Birth_Date()
             << "AVG mark: "
-            << this->Avg_mark;
+            << this->Avg_mark << " ";
     }
 
 };
@@ -305,7 +305,7 @@ public:
         << Get_ID().series
         << Get_ID().number
         << " , Birth date:"
-        << Get_Birth_Date();
+        << Get_Birth_Date() << " ";
     }
 
     std::string Get_department() const {
