@@ -221,8 +221,14 @@ public:
                 const std::string& first_Name,
                 const std::string& middle_Name,
                 const std::string& last_Name,
-                time_t birth_Date
-                ) : Person (id, first_Name, middle_Name, last_Name, birth_Date) {}
+                time_t birth_Date,
+                double Avg_mark
+                ) : Person (id,
+                            first_Name,
+                            middle_Name,
+                            last_Name,
+                            birth_Date)
+                            {}
 
     bool is_Equal(const std::shared_ptr<Set_Element>& other) const override {
         auto casted = std::dynamic_pointer_cast<Student_element>(other);
@@ -244,13 +250,15 @@ public:
             << Get_Middle_Name() 
             << " " 
             << Get_Last_Name() 
-            << ", ID: " 
-            << Get_ID().series 
+            << ", "
+            << "\nID: " 
+            << Get_ID().series
+            << ", "
             << Get_ID().number 
-            << ", Birth Date: " 
+            << "\nBirth Date: " 
             << Get_Birth_Date()
-            << "AVG mark: "
-            << this->Avg_mark << " ";
+            << "\nAVG mark: "
+            << this->Avg_mark << " \n";
     }
 
 };
@@ -295,17 +303,21 @@ public:
 
     void print() const override {
         std::cout 
-        << "Teacher: "
+        << "\nTeacher: "
         << Get_First_Name()
         << " "
         << Get_Middle_Name()
         << " "
         << Get_Last_Name()
-        << " ID:"
+        << "\nID: "
         << Get_ID().series
+        << ", "
         << Get_ID().number
-        << " , Birth date:"
-        << Get_Birth_Date() << " ";
+        << "\nBirth date: "
+        << Get_Birth_Date()
+        << "\nDepartment: "
+        << this->department
+        <<" \n";
     }
 
     std::string Get_department() const {
