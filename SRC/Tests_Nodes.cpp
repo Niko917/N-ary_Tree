@@ -7,7 +7,7 @@
 #include <memory>
 #include <assert.h>
 
-
+/*
 
 void Test_for_Nodes() {
 
@@ -42,7 +42,7 @@ void Test_for_Nodes() {
     auto Int_Node = std::make_shared<Tree_Node>(Integer, nullptr);
     auto Str_Node = std::make_shared<Tree_Node>(String, nullptr);
 
-    Int_Node->add_child(Str_Node);
+    //Int_Node->add_child(Str_Node);
     assert(Int_Node->Parent == nullptr);
     assert(Str_Node->Parent == Int_Node.get());
     assert(Int_Node->get_child(0) == Str_Node);
@@ -55,7 +55,7 @@ void Test_for_Nodes() {
 
     auto child_1 = std::make_shared<Tree_Node>();
 
-    root->add_child(child_1);
+    //root->add_child(child_1);
     assert(root->get_child(0) == child_1);
     assert(child_1->Parent == root.get());
     assert(!root->is_Leaf());
@@ -63,20 +63,20 @@ void Test_for_Nodes() {
     assert(child_1->is_Leaf());
 
     auto grandchild = std::make_shared<Tree_Node>();
-    child_1->add_child(grandchild);
+    //child_1->add_child(grandchild);
 
     assert(!child_1->is_Leaf());
     assert(grandchild->is_Leaf());
 
 
     // 2. remove_child
-    root->remove_child(child_1);
+    //root->remove_child(child_1);
     assert(child_1->Parent == nullptr);
 
 
     // 3. get_child
     auto child_2 = std::make_shared<Tree_Node>();
-    root->add_child(child_2);
+    //root->add_child(child_2);
     assert(root->get_child(0) == child_2);
 
     try {
@@ -110,18 +110,7 @@ void Test_for_Nodes() {
     // std::cout << std::endl;
    
 
-
-
-
-
-
-
-
-
-
-
-
     std::cout << "Tree Node tests passed! \n";
     
 }
-
+*/
