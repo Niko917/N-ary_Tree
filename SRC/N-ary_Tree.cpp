@@ -13,15 +13,29 @@
 #include <unordered_map>
 #include <unordered_set>
 
+size_t N_Ary_Tree::N = 0;
 
-//METHODS
+//METHODS FOR NODE
 
 
 void Tree_Node::add_child(const std::shared_ptr<Tree_Node>& child, N_Ary_Tree& tree) {
+
+    if (this->children.size() >= N_Ary_Tree::N) {
+        throw TREE_EXCEPTION{ERRORS::Too_many_children};
+    }
+
+    if (tree.used_keys.find(child->element_with_Key.second) != tree.used_keys.end()) {
+        throw TREE_EXCEPTION{ERRORS::Dublicate_Key};
+    }
+
+
+    tree.used_keys.insert(child->element_with_Key.second);
+
     child->Parent = this;
     children.push_back(child);
     tree.info.push_back(child->element_with_Key);
 }
+
 
 
 void Tree_Node::remove_child(const std::shared_ptr<Tree_Node>& child, N_Ary_Tree& tree) {
@@ -30,6 +44,7 @@ void Tree_Node::remove_child(const std::shared_ptr<Tree_Node>& child, N_Ary_Tree
     if (it != children.end()) {
         (*it)->Parent = nullptr;
         children.erase(it);
+        tree.used_keys.erase(child->element_with_Key.second);
     }
 }
 
@@ -103,11 +118,15 @@ bool Tree_Node::is_Leaf() const {
 
 
 std::shared_ptr<N_Ary_Tree> N_Ary_Tree::Create_Tree(size_t n, std::vector<std::pair<std::shared_ptr<Set_Element>, size_t>>& elements_with_keys) {
+
+    N_Ary_Tree::N = n;
+
     if (elements_with_keys.empty()) throw TREE_EXCEPTION{ERRORS::Tree_is_Empty};
 
     auto root_node = std::make_shared<Tree_Node>(elements_with_keys[0].first, elements_with_keys[0].second);
 
     auto tree = std::make_shared<N_Ary_Tree>(root_node);
+    tree->used_keys.insert(elements_with_keys[0].second); // add rott key to used_keys
 
     std::queue<std::shared_ptr<Tree_Node>> nodes;
     nodes.push(root_node);
@@ -251,7 +270,7 @@ size_t N_Ary_Tree::find_Diameter() const {
 
 size_t N_Ary_Tree::Leaf_count() const {
 
-    if (is_Empty()) throw TREE_EXCEPTION{ERRORS::Tree_is_Empty};
+    if (is_Empty()) throw TREE_EXCEPTION{ERRORS::Node_is_a_Leaf};
     
     size_t Leaf_cnt = 0;
 
@@ -329,8 +348,7 @@ std::shared_ptr<Set_Element> N_Ary_Tree::find_by_key(size_t given_key) const {
                 nodes_stack.push(child);
         }
     }
-
-    throw TREE_EXCEPTION{ERRORS::Node_not_found};
+    throw TREE_EXCEPTION{ERRORS::Key_not_found};
 }
 
 
@@ -358,8 +376,6 @@ size_t N_Ary_Tree::find_by_value(const std::shared_ptr<Set_Element>& value) cons
             nodes_stack.push(child);
         }
     }
-
-    throw TREE_EXCEPTION{ERRORS::Node_not_found};
 }
 
 
@@ -384,7 +400,7 @@ std::shared_ptr<Tree_Node> N_Ary_Tree::find_node_by_key(size_t key) const {
         }
     }
 
-    throw TREE_EXCEPTION{ERRORS::Node_not_found};
+
 }
 
 
@@ -418,12 +434,10 @@ void N_Ary_Tree::show(const std::shared_ptr<Tree_Node>& node, size_t depth) cons
     if (!node) return;
 
     for (size_t i = 0; i < depth; ++i) {
-        std::cout << "|     "; // two backspaces for each level
+        std::cout << "|     "; // five backspaces for each level
     }
 
     std::cout << "+ --- " << node->element_with_Key.second << std::endl;
-
-
 
     for (const auto& child : node->children) {
         show(child, depth + 1);
@@ -540,6 +554,7 @@ std::queue<size_t> N_Ary_Tree::Level_BFS_Traverse() const {
     }
     return out;
 }
+
 
 
 // --------------------------------------------------------------------

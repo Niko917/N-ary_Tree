@@ -1,21 +1,24 @@
 #pragma once
 
 #include <functional>
+#include <ios>
 #include <iostream>
+#include <limits>
 #include <memory>
 #include <string>
 #include <complex>
 
 
 class Set_Element {
-    
+
 public:
     
     virtual ~Set_Element() = default;
-    
+
     virtual bool is_Equal(const std::shared_ptr<Set_Element>& other) const = 0;
 
     virtual void print() const = 0;
+
 };
 
 
@@ -129,38 +132,6 @@ public:
     void print() const override {
         std::cout << this->item << " ";
     }  
-};
-
-
-// -------------------------------------------------------------------------
-
-
-class Base_Function {
-private:
-    virtual~Base_Function() = default;
-    virtual void Func_name() const = 0;
-    virtual void call_function() = 0;
-
-};
-
-
-template <typename Return_Type, typename... Args>
-class Function_element : public Base_Function {
-private:
-    // general pointer to function
-    std::function<Return_Type(Args...)> func;
-    std::string Fn_name;
-
-public:
-    Function_element(std::function<Return_Type(Args...)> fn, const std::string& name) : func(fn), Fn_name(name) {}
-    
-    void call_function() override {
-        Return_Type result = func();
-    }
-
-    void Func_name() const override {
-        std::cout << this->Fn_name << " ";
-    }
 };
 
 

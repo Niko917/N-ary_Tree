@@ -8,6 +8,8 @@
 #include <utility>
 #include <vector>
 #include "exceptions.hpp"
+#include <unordered_set>
+
 
 class N_Ary_Tree;
 
@@ -33,10 +35,6 @@ struct Tree_Node {
     }
 
     Tree_Node(std::shared_ptr<Set_Element> elem, Tree_Node* parent = nullptr) : element_with_Key(elem, 0), Parent(parent) {}
-
-    Tree_Node() = default;
-
-    ~Tree_Node() = default;
 
     // ---------------------------------------------
 
@@ -76,8 +74,11 @@ struct Tree_Node {
 
 class N_Ary_Tree {
 public:
+    static size_t N;
 
     std::shared_ptr<Tree_Node> root;
+
+    std::unordered_set<size_t> used_keys;
 
     std::vector<std::pair<std::shared_ptr<Set_Element>, size_t>> info;
 
@@ -102,7 +103,6 @@ public:
 
     size_t find_Diameter() const;
 
-    // DFS
 
     std::shared_ptr<Set_Element> find_by_key(size_t Key) const;
 
@@ -128,7 +128,6 @@ public:
     // ------------------------------------------------
     // TRAVERSING
 
-    // DFS
 
     std::stack<size_t> Preorder_Traversal() const; // ROOT->LEFT->RIGHT
 
@@ -139,7 +138,6 @@ public:
     std::queue<size_t> Level_BFS_Traverse() const;
 
 };
-
 
 // ----------------------------------------------------
 

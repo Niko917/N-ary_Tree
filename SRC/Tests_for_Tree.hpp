@@ -6,4 +6,3 @@ void Test_constructors();
 
 void Test_methods();
 
-void Tests_Traversing();
