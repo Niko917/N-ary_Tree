@@ -1,0 +1,1 @@
+This code represents an implementation of an abstract data type - an N-ary tree, which allows for the manipulation of various data types (real numbers, integers, complex numbers, strings, students, teachers).
